@@ -1,5 +1,5 @@
 <?php
-require './config/function.php';
+require '../config/function.php';
 $paraResultId = checkParamId('id');
 if (is_numeric($paraResultId)) {
 
@@ -14,11 +14,11 @@ if (is_numeric($paraResultId)) {
 
             redirect('admins.php', 'Admin Deleted Successfully');
         } else {
-            redirect('admins.php', 'Something Went Wrong.');
+            redirect('admins.php',  'Something Went Wrong.');
         }
     } else {
         redirect('admins.php', $adminId['message']);
-    }
+    } 
 } else {
     redirect('admins.php', 'Something Went Wrong.');
 }

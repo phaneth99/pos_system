@@ -1,5 +1,5 @@
 <?php
-include('./config/function.php');
+include('../config/function.php');
 // Insert Admins
 if (isset($_POST['saveAdmin'])) {
     // Validation Data From Form
