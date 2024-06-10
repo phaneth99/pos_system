@@ -1,6 +1,7 @@
 
 <?php
 require '../config/function.php';
+require 'authentication.php';
 // call only in the header others that use header.php also can use this function
 ?>
 <!DOCTYPE html>

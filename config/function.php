@@ -1,10 +1,8 @@
 <?php
-
-use LDAP\Result;
-
 session_start();
 
 require 'dbcon.php';
+
 
 // Input Field Validation
 function validate($inputData)
@@ -186,3 +184,13 @@ function checkParamId($type){
         return'<h5>No Id Given</h5>';
     }
 }
+
+
+// <!-- Logged Out Function -->
+
+function loggoutSession(){
+    unset($_SESSION['loggedIn']);
+    unset($_SESSION['loggedInUser']);
+}
+
+?>
