@@ -124,3 +124,38 @@ if(isset($_POST['saveCategory'])){
     }
     
 }
+
+// Update Category
+if (isset($_POST['updateCategory'])) {
+    
+    $paramValue = validate($_POST['categoryId']);
+
+    $category = getByid('categories',$paramValue);
+    
+    if ($category['status'] != 200) { 
+        redirect('categories-edit.php', 'Please fill requiered fields.');
+    }
+
+    $name = validate($_POST['name']);
+    $dec = validate($_POST['dec']);
+    $status = validate($_POST['status']) == true ? 1:0;
+
+    if ($name != '') {
+        
+        $data = [
+            'name' => $name,
+            'description' => $dec,
+            'status' => $status
+        ];
+        $result = update('categories', $paramValue, $data);
+
+        if ($result) {
+            redirect('categories-edit.php?id=' . $paramValue, 'Category Updated Successfully!');
+        } else {
+            redirect('categories-edit.php', 'Something went wrong! Please try again.');
+        }
+    } else {
+
+        redirect('categories-edit.php?id=' . $paramValue, 'Please fill requiered fields.');
+    }
+}
