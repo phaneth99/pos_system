@@ -77,7 +77,7 @@
 
 <script>
     function confirmDeletion(adminId) {
-        if (confirm("Are you sure you want to delete this admin?")) {
+        if (confirm("Are you sure you want to delete this category?")) {
             window.location.href = 'categories-delete.php?id=' + adminId;
         }
     }
