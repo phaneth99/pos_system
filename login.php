@@ -22,7 +22,7 @@ if (isset($_SESSION['loggedIn'])) {
                     <?php alertMessage(); ?>
 
                     <div class="p-5">
-                        <h4 class="text-dark mb-3">Sign to your POS System</h4>
+                        <h4 class="text-dark mb-3">Login to your POS System</h4>
 
                         <form action="login-code.php" method="POST">
                             <div class="mb-3">
@@ -37,7 +37,7 @@ if (isset($_SESSION['loggedIn'])) {
 
                             <div class="mb-3">
                                 <button type="submit" name="loginBtn" class="btn btn-primary w-100 mt-2">
-                                    Sign In
+                                    Login
                                 </button>
                             </div>
                         </form>

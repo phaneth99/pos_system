@@ -4,7 +4,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <h1>Welcome To Online POS System</h1>
+                <h1>Welcome To POS System </h1>
                 <a href="login.php" class="btn btn-primary mt-4">Login</a>
             </div>
         </div>

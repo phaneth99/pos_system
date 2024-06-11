@@ -5,7 +5,7 @@
         <div class="card-header">
             <h4 class="mb-0">Add Category
 
-                <a href="category.php" class="btn btn-danger float-end">Back</a>
+                <a href="categories.php" class="btn btn-danger float-end">Back</a>
             </h4>
         </div>
 

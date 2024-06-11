@@ -31,8 +31,9 @@ if(isset($_POST['loginBtn'])){
                     'email' => $row['email'],
                     'phone' => $row['phone'],
                 ];
-                redirect('admin/index.php', 'Logged In Successfully.');
+                // redirect('admin/index.php', 'Logged In Successfully.');
                 // header('Location: admin/index.php');
+                header('Location:admin/index.php');
 
 
             }else{
