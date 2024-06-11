@@ -28,6 +28,7 @@ if (isset($_POST['saveAdmin'])) {
                 redirect('admins-create.php', "Email Already used by another user");
             } else {
                 $bcrypt_password = password_hash($password, PASSWORD_BCRYPT);
+
                 $data = [
                     'name' => $name,
                     'email' => $email,
@@ -98,4 +99,28 @@ if (isset($_POST['updateAdmin'])) {
 
         redirect('admins-edit.php?id=' . $adminId, 'Please fill requiered fields.');
     }
+}
+
+// Category Insert
+
+if(isset($_POST['saveCategory'])){
+
+    $name = validate($_POST['name']);
+    $dec = validate($_POST['dec']);
+    $status = isset($_POST['status']) == true? 1 : 0;
+
+
+    $data = [
+        'name' => $name,
+        'description' => $dec,
+        'status' => $status
+    ];
+    $result = insert('categories', $data);
+    
+    if ($result) {
+        redirect('Category.php', 'Category Created Successfully!');
+    } else {
+        redirect('categories-create.php', 'Something went wrong! Please try again.');
+    }
+    
 }
