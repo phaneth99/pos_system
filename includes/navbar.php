@@ -18,7 +18,7 @@
             <a class="nav-link" href="admin/index.php"><?= $_SESSION['loggedInUser']['name']; ?></a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-danger" href="logout.php">Logout</a>
+            <a class="btn btn-danger btn-sm" href="logout.php">Logout</a>
           </li>
 
         <?php else : ?>

@@ -4,8 +4,8 @@
     <div class="card mt-4 shadow-sm">
         <!-- shadow-small -->
         <div class="card-header">
-            <h4 class="mb-0">Categories
-                <a href="categories-create.php" class="btn btn-primary float-end">Add Category</a>
+            <h4 class="mb-0">Customers
+                <a href="customers-create.php" class="btn btn-primary float-end">Add Customer</a>
             </h4>
         </div>
 
@@ -13,13 +13,14 @@
             <?php alertMessage() ?>
 
             <?php
-            $category = getAll('categories');  // Fetch all records from the 'admins' table
+            $customer = getAll('customers');  // Fetch all records from the 'admins' table
 
-            if (! $category ) {
+            if (!$customer) {
                 echo '<h4>Something Went Wrong!</h4>';
                 return false;
             }
-            if (mysqli_num_rows( $category ) > 0) {
+
+            if (mysqli_num_rows($customer) > 0) {
             ?>
 
                 <div class="table-responsive">
@@ -28,15 +29,19 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($category as $item) : ?>
+                            <?php foreach ($customer as $item) : ?>
                                 <tr>
                                     <td><?= $item['id'] ?></td>
                                     <td><?= $item['name'] ?></td>
+                                    <td><?= $item['email'] ?></td>
+                                    <td><?= $item['phone'] ?></td>
                                     <td>
                                         <?php
                                             if($item['status'] == 0){
@@ -48,8 +53,9 @@
                                     </td>
 
                                     <td>
-                                        <a href="categories-edit.php?id=<?= $item['id'] ?>" ; class="btn btn-success btn-sm">Edit</a>
-                                        <a href="javascript:void(0);" onclick="confirmDeletion(<?= $item['id'] ?>);" class="btn btn-danger btn-sm">Delete</a>
+                                        <a href="customers-edit.php?id=<?= $item['id'] ?>" ; class="btn btn-success btn-sm">Edit</a>
+                                        <a href="customers-delete.php?id=<?= $item['id'] ?>" ; class="btn btn-danger btn-sm" onclick="return confirm('Are you sure want to delete this image?')">
+                                        Delete
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -60,11 +66,6 @@
             <?php
             } else {
             ?>
-
-                <!-- <tr>
-                    <td colspan="4">No Record found!</td>
-                </tr> -->
-
                 <div class="alert alert-warning" role="alert">
                     No Record found!
                 </div>
@@ -74,13 +75,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    function confirmDeletion(adminId) {
-        if (confirm("Are you sure you want to delete this category?")) {
-            window.location.href = 'categories-delete.php?id=' + adminId;
-        }
-    }
-</script>
 
 <?php include('includes/footer.php'); ?>

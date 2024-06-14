@@ -231,7 +231,7 @@ if (isset($_POST['updateProduct'])) {
 
         $path = "../assets/uploads/products";
 
-        $image_ext = pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION);
+        $image_ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
 
         $fileName = time() . '.' . $image_ext;
 
@@ -239,13 +239,11 @@ if (isset($_POST['updateProduct'])) {
 
         $finalImage = "assets/uploads/products/" . $fileName;
 
-        $deleteImage = "../".$productData['data']['image'];
+        $deleteImage = "../" . $productData['data']['image'];
 
-        if(file_exists($deleteImage)){
+        if (file_exists($deleteImage)) {
             unlink($deleteImage);
-
         }
-
     } else {
         $finalImage = $productData['data']['image'];
     }
@@ -259,11 +257,92 @@ if (isset($_POST['updateProduct'])) {
         'image' => $finalImage,
         'status' => $status
     ];
-    $result = update('products',$product_id, $data);
+    $result = update('products', $product_id, $data);
 
     if ($result) {
-        redirect('products-edit.php?id='.$product_id, ' Updated Successfully!');
+        redirect('products-edit.php?id=' . $product_id, ' Updated Successfully!');
     } else {
-        redirect('products-edit.php?id='.$product_id, 'Something went wrong! Please try again.');
+        redirect('products-edit.php?id=' . $product_id, 'Something went wrong! Please try again.');
+    }
+}
+
+// Insert Customer
+
+if (isset($_POST['saveCustomer'])) {
+
+    $name = validate($_POST['name']);
+    $phone = validate($_POST['phone']);
+    $email = validate($_POST['email']);
+    $status = isset($_POST['status']) == true ? 1 : 0;
+
+    if ($name != '') {
+
+        $emailCheck = mysqli_query($conn, "SELECT * FROM customers WHERE email = '$email'");
+        if ($emailCheck) {
+            if (mysqli_num_rows($emailCheck) > 0) {
+                redirect('customers-create.php', 'Email Already used by another customer');
+            }
+        }
+
+        $data = [
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'status' => $status
+        ];
+        $result = insert('customers', $data);
+
+        if ($result) {
+            redirect('Customers.php', 'Customer Created Successfully!');
+        } else {
+            redirect('customers-create.php', 'Something went wrong! Please try again.');
+        }
+    } else {
+        redirect('customers-create.php', 'Please fill requiered fields.');
+    }
+}
+
+// Update Customer
+
+if (isset($_POST['updateCustomer'])) {
+
+    $customer_id = validate($_POST['customer_id']);
+
+    $customer = getByid('customers', $customer_id);
+
+    if ($customer['status'] != 200) {
+        redirect('customers-edit.php', 'Please fill requiered fields.');
+    }
+
+    $name = validate($_POST['name']);
+    $email = validate($_POST['email']);
+    $phone = validate($_POST['phone']);
+    $status = validate($_POST['status']) == true ? 1 : 0;
+
+    if ($name != '') {
+
+        $emailCheck = mysqli_query($conn, "SELECT * FROM customers WHERE email = '$email' AND id!=$customer_id");
+        if ($emailCheck) {
+            if (mysqli_num_rows($emailCheck) > 0) {
+                redirect('customers-edit.php?id=' . $customer_id, 'Email Already used by another customer');
+            }
+        }
+
+        $data = [
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'status' => $status
+        ];
+        $result = update('customers', $customer_id, $data);
+
+        if ($result) {
+            redirect('customers-edit.php?id='. $customer_id, 'Customer Updated Successfully!');
+        } else {
+            redirect('customers-edit.php', 'Something went wrong! Please try again.');
+        }
+    } else {
+
+        redirect('customers-edit.php?id='. $customer_id, 'Please fill requiered fields.');
     }
 }
