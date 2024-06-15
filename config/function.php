@@ -193,4 +193,18 @@ function loggoutSession(){
     unset($_SESSION['loggedInUser']);
 }
 
+// <!-- Json Respone -->
+
+function jsonRespone($status,$status_type,$message){
+
+    $respone =[
+        'status' => $status,
+        'status_type'=>$status_type,
+        'message' => $message
+    ];
+    echo json_encode($respone);
+    return;
+}
+
 ?>
+
