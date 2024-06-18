@@ -13,6 +13,7 @@ require 'authentication.php';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="icon" type="image/jpeg" sizes="256x256" href="../admin/assets/img/logo.jpg">
     <title>Fashion POS System</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 
