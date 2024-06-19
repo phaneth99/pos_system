@@ -31,8 +31,7 @@
                 
                     <div class="row">
 
-                        <div class="col-md-12 mb-3">
-
+                        <div class="col-md-4 mb-3">
                             <label class="form-label">Select Category</label>
                             <select name="category_id" class="form-select">
                                 <option value="">Select Category</option>
@@ -57,6 +56,73 @@
                                         }
                                     } else {
                                         echo '<option value="">No Category found</option>;';
+                                    }
+                                } else {
+                                    echo '<option value="">Something Went Wrong!</option>;';
+                                }
+                                ?>
+                            </select>
+
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Select Supplier</label>
+                            <select name="supplier_id" class="form-select">
+                                <option value="">Select Supplier</option>
+                                <?php
+                                $suppliers = getAll('suppliers');
+
+                                if ($suppliers) {
+
+                                    if (mysqli_num_rows($suppliers) > 0) { 
+
+                                        foreach ($suppliers as $supItem) {
+                                            
+                                            ?>
+                                            <option value="<?=$supItem['id'];?>"
+                                            <?= $product['data']['supplier_id'] == $supItem['id'] ? 'selected':''; ?>
+                                            >
+
+                                            <?=$supItem['name'];?>
+                                        </option>
+                                            <?php
+
+                                        }
+                                    } else {
+                                        echo '<option value="">No Supplier found</option>;';
+                                    }
+                                } else {
+                                    echo '<option value="">Something Went Wrong!</option>;';
+                                }
+                                ?>
+                            </select>
+
+                        </div>
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">Select Admin</label>
+                            <select name="admin_id" class="form-select">
+                                <option value="">Select Admin</option>
+                                <?php
+                                $admins = getAll('admins');
+
+                                if ($admins) {
+
+                                    if (mysqli_num_rows($admins) > 0) { 
+
+                                        foreach ($admins as $adminItem) {
+                                            
+                                            ?>
+                                            <option value="<?=$adminItem['id'];?>"
+                                            <?= $product['data']['admin_id'] == $adminItem['id'] ? 'selected':''; ?>
+                                            >
+
+                                            <?=$adminItem['name'];?>
+                                        </option>
+                                            <?php
+
+                                        }
+                                    } else {
+                                        echo '<option value="">No Admin found</option>;';
                                     }
                                 } else {
                                     echo '<option value="">Something Went Wrong!</option>;';

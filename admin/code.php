@@ -163,12 +163,17 @@ if (isset($_POST['updateCategory'])) {
 if (isset($_POST['saveProduct'])) {
 
     $categoryId = validate($_POST['category_id']);
+    $supplierId = validate($_POST['supplier_id']);
+    $adminId = validate($_POST['admin_id']);
     $name = validate($_POST['name']);
     $dec = validate($_POST['dec']);
     $price = validate($_POST['price']);
     $quantity = validate($_POST['qty']);
     $image = validate($_POST['image']);
     $status = isset($_POST['status']) == true ? 1 : 0;
+
+
+    if($name != '' && $categoryId != '' && $supplierId != '' && $adminId != ''){
 
     if ($_FILES['image']['size'] > 0) {
 
@@ -186,10 +191,11 @@ if (isset($_POST['saveProduct'])) {
         $finalImage = "";
     }
 
-
     $data = [
         'name' => $name,
         'category_id' => $categoryId,
+        'supplier_id' => $supplierId,
+        'admin_id' => $adminId,
         'description' => $dec,
         'price' => $price,
         'quantity' => $quantity,
@@ -203,6 +209,10 @@ if (isset($_POST['saveProduct'])) {
     } else {
         redirect('products-create.php', 'Something went wrong! Please try again.');
     }
+} else{
+    redirect('products-create.php', 'Please fill in all required fields.');
+}
+
 }
 
 //Update Product
@@ -219,12 +229,17 @@ if (isset($_POST['updateProduct'])) {
     }
 
     $category_id = validate($_POST['category_id']);
+    $supplier_id = validate($_POST['supplier_id']);
+    $admin_id = validate($_POST['admin_id']);
     $name = validate($_POST['name']);
     $dec = validate($_POST['dec']);
     $price = validate($_POST['price']);
     $quantity = validate($_POST['qty']);
     $image = validate($_POST['image']);
     $status = isset($_POST['status']) == true ? 1 : 0;
+
+    if($name != '' && $category_id != '' && $supplier_id != '' && $admin_id != ''){
+
 
     if ($_FILES['image']['size'] > 0) {
 
@@ -264,6 +279,9 @@ if (isset($_POST['updateProduct'])) {
     } else {
         redirect('products-edit.php?id=' . $product_id, 'Something went wrong! Please try again.');
     }
+}else{
+    redirect('products-edit.php?id=' . $product_id, ' Please fill in all required fields.');
+}
 }
 
 // Insert Customer
@@ -321,7 +339,7 @@ if (isset($_POST['updateCustomer'])) {
 
     if ($name != '') {
 
-        $emailCheck = mysqli_query($conn, "SELECT * FROM customers WHERE email = '$email' AND id!=$customer_id");
+        $emailCheck = mysqli_query($conn, "SELECT * FROM customers WHERE email = '$email' AND id !='$customer_id'");
         if ($emailCheck) {
             if (mysqli_num_rows($emailCheck) > 0) {
                 redirect('customers-edit.php?id=' . $customer_id, 'Email Already used by another customer');
@@ -337,12 +355,113 @@ if (isset($_POST['updateCustomer'])) {
         $result = update('customers', $customer_id, $data);
 
         if ($result) {
-            redirect('customers-edit.php?id='. $customer_id, 'Customer Updated Successfully!');
+            redirect('customers-edit.php?id=' . $customer_id, 'Customer Updated Successfully!');
         } else {
             redirect('customers-edit.php', 'Something went wrong! Please try again.');
         }
     } else {
 
-        redirect('customers-edit.php?id='. $customer_id, 'Please fill requiered fields.');
+        redirect('customers-edit.php?id=' . $customer_id, 'Please fill requiered fields.');
     }
 }
+
+// Save Supplier
+
+if (isset($_POST['saveSupplier'])) {
+    $phone = validate($_POST['phone']);
+    $name = validate($_POST['name']);
+    $email = validate($_POST['email']);
+    $address = validate($_POST['address']);
+    $company = validate($_POST['company']);
+    $status = isset($_POST['status']) == true ? 1 : 0;
+
+    if ($phone && $name   && $company !='') {
+
+        if (!is_numeric($phone) || strlen($phone) != 9 && strlen($phone) != 10) {
+            redirect('suppliers-create.php', 'Invalid phone number.');
+            exit;
+        }
+
+        $emailCheck = mysqli_query($conn, "SELECT * FROM suppliers WHERE email = '$email'");
+
+        if ($emailCheck) {
+            if (mysqli_num_rows($emailCheck) > 0) {
+                redirect('suppliers-create.php', 'Email Already used by another Supplier.');
+            }
+        }
+
+        $data = [
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'company' => $company,
+            'status' => $status
+
+        ];
+
+        $result = insert('suppliers', $data);
+
+        if ($result) {
+            redirect('suppliers.php', 'Supplier Created Successfully.');
+        } else {
+            redirect('suppliers-create.php', 'Something Went Wrong!');
+        }
+    }else{
+        redirect('suppliers-create.php', 'Please fill required fields!');
+      
+    }
+}
+
+// Update Supplier
+
+if (isset($_POST['updateSupplier'])) {
+
+    $supplier_id = validate($_POST['supplier_id']);
+
+    $supplier = getByid('suppliers', $supplier_id);
+
+    if ($supplier['status'] != 200) {
+        redirect('suppliers-edit.php', 'Please fill requiered fields.');
+    }
+
+    $name = validate($_POST['name']);
+    $email = validate($_POST['email']);
+    $phone = validate($_POST['phone']);
+    $address = validate($_POST['address']);
+    $company = validate($_POST['company']);
+    $status = validate($_POST['status']) == true ? 1 : 0;
+
+    if ($phone && $name && $company !='') {
+
+        $emailCheck = mysqli_query($conn, "SELECT * FROM suppliers WHERE email = '$email' AND id != '$supplier_id'");
+        if ($emailCheck) {
+            if (mysqli_num_rows($emailCheck) > 0) {
+                redirect('suppliers-edit.php?id='. $supplier_id, 'Email Already used by another Supplier');
+            }
+        }
+
+        $data = [
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'company' => $company,
+            'status' => $status
+        ];
+
+        $result = update('suppliers', $supplier_id, $data);
+
+        if ($result) {
+            redirect('suppliers-edit.php?id=' . $supplier_id, 'Supplier Updated Successfully!');
+        } else {
+            redirect('suppliers-edit.php', 'Something went wrong! Please try again.');
+        }
+    } else {
+
+        redirect('suppliers-edit.php?id='. $supplier_id, 'Please fill requiered fields.');
+    }
+}
+
+
+?>

@@ -24,6 +24,26 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/")+1)
 
                 <div class="sb-sidenav-menu-heading">Interface</div>
 
+                <!-- Supplier -->
+                <a class="nav-link 
+                <?=($page == 'suppliers-create.php') || ($page == 'suppliers.php')? 'active' : 'collapsed'; ?>"
+                href="#" data-bs-toggle="collapse" 
+                data-bs-target="#collapseSupplier" aria-expanded="false" aria-controls="collapseSupplier">
+                <!-- Change Laout to Cantegory -->
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Suppliers
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse <?=($page == 'suppliers-create.php.php') || ($page == 'suppliers.php')? 'show' : ''; ?>"
+                 id="collapseSupplier" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link <?=$page == 'suppliers-create.php' ? 'active' : ''; ?>" href="suppliers-create.php">Create  Supplier</a>
+                        <a class="nav-link <?=$page == 'suppliers.php' ? 'active' : ''; ?>" href="suppliers.php">View Suppliers</a>
+                    </nav>
+                </div>
+                
+                    <!-- Category -->
                 <a class="nav-link 
                 <?=($page == 'categories-create.php') || ($page == 'categories.php')? 'active' : 'collapsed'; ?>"
                 href="#" data-bs-toggle="collapse" 
@@ -41,6 +61,7 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/")+1)
                         <a class="nav-link <?=$page == 'categories.php' ? 'active' : ''; ?>" href="categories.php">View Categores</a>
                     </nav>
                 </div>
+
                 
                 <a class="nav-link collapsed
                  <?=($page == 'products-create.php') || ($page == 'products.php')? 'active' : 'collapsed'; ?>"
