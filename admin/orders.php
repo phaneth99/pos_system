@@ -88,8 +88,8 @@
             if ($order) {
                 if (mysqli_num_rows($order) > 0) {
             ?>
-
-                    <table class="table table-striped table-bordered aligin-items-center justify-content-center">
+                    <div class="table-responsive">
+                    <table class="table table-striped  table-bordered aligin-items-center justify-content-center">
                         <thead>
                             <tr>
                                 <th>Tracking No.</th>
@@ -121,6 +121,7 @@
                         </tbody>
 
                     </table>
+                </div>
 
             <?php
 

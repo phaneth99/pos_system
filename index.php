@@ -1,10 +1,5 @@
-<?php include('includes/header.php');?>
-<style>
- /* .bg{
-    background-size: cover;
-    height: 100vh;
- } */
-</style>
+<?php include 'includes/header.php';?>
+
 <div class="py-5 bg" style="background-image:url('admin//assets//img//bg_pos.avif')">
     <div class="container mt-5">
         <div class="row">
