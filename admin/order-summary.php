@@ -103,6 +103,8 @@ if (!isset($_SESSION['productItems'])) {
                                         <tr>
                                             <th align="start" style="border-bottom: 1px solid #ccc;" width="5%">ID</th>
                                             <th align="start" style="border-bottom: 1px solid #ccc;">Prodcut Name</th>
+                                            <th align="start" style="border-bottom: 1px solid #ccc;">Size</th>
+                                            <th align="start" style="border-bottom: 1px solid #ccc;">Color</th>
                                             <th align="start" style="border-bottom: 1px solid #ccc;" width="10%">Price</th>
                                             <th align="start" style="border-bottom: 1px solid #ccc;" width="10%">Quantity</th>
                                             <th align="start" style="border-bottom: 1px solid #ccc;" width="15%">Price Total</th>
@@ -114,16 +116,18 @@ if (!isset($_SESSION['productItems'])) {
                                         $i = 1;
                                         $totalAmount = 0;
                                         foreach ($sessionProduct as $key => $row) :
-                                            $totalAmount += $row['price'] * $row['quantity']
+                                            $totalAmount += $row['sale_price'] * $row['quantity']
                                         ?>
 
                                             <tr>
                                                 <td style="border-bottom: 1px solid #ccc;"><?= $i++; ?></td>
                                                 <td style="border-bottom: 1px solid #ccc;"><?= $row['name']; ?></td>
-                                                <td style="border-bottom: 1px solid #ccc;"><?= number_format($row['price'], 0) ?></td>
+                                                <td style="border-bottom: 1px solid #ccc;"><?= $row['size']; ?></td>
+                                                <td style="border-bottom: 1px solid #ccc;"><?= $row['color']; ?></td>
+                                                <td style="border-bottom: 1px solid #ccc;"><?= number_format($row['sale_price'], 0) ?></td>
                                                 <td style="border-bottom: 1px solid #ccc;"><?= $row['quantity']; ?></td>
                                                 <td style="border-bottom: 1px solid #ccc;" class="fw-bold">
-                                                    <?= number_format($row['price'] * $row['quantity'], 0) ?>
+                                                    <?= number_format($row['sale_price'] * $row['quantity'], 0) ?>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

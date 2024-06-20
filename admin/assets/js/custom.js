@@ -176,6 +176,7 @@ $(document).ready(function () {
   });
 });
 
+
 // To Print the order on order-view-prints.php
 
 function printMyBillingArea(){

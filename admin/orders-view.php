@@ -30,8 +30,8 @@
 
                     $trackingNo  = validate($_GET['tracking']);
 
-                    $orders = mysqli_query($conn, "SELECT o.*, c.* FROM orders o, customers c 
-                    WHERE c.id = o.customer_id AND tracking_no ='$trackingNo' ORDER by o.id DESC");
+                    $orders = mysqli_query($conn, "SELECT o.*, a.* FROM orders o, admins a 
+                    WHERE a.id = o.order_placed_by_id AND tracking_no ='$trackingNo' ORDER by o.id DESC");
 
                     if($orders){
                         if(mysqli_num_rows($orders) > 0){
@@ -93,7 +93,7 @@
 
                             <?php
                              $orderItemQuery = mysqli_query($conn,"SELECT oi.quantity as orderItemQuantity,
-                             oi.price as orderItemPrice, o.*, oi.*, p.* 
+                             oi.sale_price as orderItemPrice, o.*, oi.*, p.* 
                              FROM orders as o, order_items as oi, products as p
                              WHERE oi.order_id = o.id AND p.id = oi.product_id 
                              AND o.tracking_no='$trackingNo'");
@@ -108,6 +108,8 @@
                                         <thead>
                                             <tr>
                                                 <th>Product</th>
+                                                <th>Color</th>
+                                                <th>Size</th>
                                                 <th>Price</th>
                                                 <th>Quantity</th>
                                                 <th>Total</th>
@@ -126,8 +128,17 @@
                                                     </td>
 
                                                     <td width="15%" class="fw-bold text-center">
+                                                        <?= ($orderItemRow['size']); ?>
+                                                    </td>
+
+                                                    <td width="15%" class="fw-bold text-center">
+                                                        <?= ($orderItemRow['color']); ?>
+                                                    </td>
+
+                                                    <td width="15%" class="fw-bold text-center">
                                                         <?= number_format($orderItemRow['orderItemPrice']); ?>
                                                     </td>
+                                            
                                                     <td width="15%" class="fw-bold text-center">
                                                         <?= $orderItemRow['orderItemQuantity']; ?>
                                                     </td>

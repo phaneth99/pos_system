@@ -224,5 +224,22 @@ function getcount($tableName){
 
 }
 
+function getcountStock($tableName, $lowerStockThreshold) {
+    global $conn;
+
+    $table = preg_replace('/[^a-zA-Z0-9_]/', '', $tableName);
+
+    // Prepare and execute the query
+    $query = "SELECT COUNT(*) AS totalCount FROM $table WHERE quantity = 0 OR quantity < $lowerStockThreshold";
+    $query_run = mysqli_query($conn, $query);
+
+    if ($query_run) {
+        $row = mysqli_fetch_assoc($query_run);
+        return $row['totalCount'];
+    } else {
+        return 'Something Went Wrong!';
+    }
+}
+
 ?>
 

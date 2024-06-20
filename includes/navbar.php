@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-lg bg-while shadow">
+<nav class="navbar navbar-expand-lg bg-while shadow ">
   <div class="container">
 
     <a class="navbar-brand" href="login.php">

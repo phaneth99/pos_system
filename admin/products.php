@@ -26,9 +26,13 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Product ID</th>
                                 <th>Image</th>
                                 <th>Name</th>
+                                <th>Stock Available</th>
+                                <th>Size</th>
+                                <th>Color</th>
+                                <th>Sale Price</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -40,6 +44,10 @@
                                     <td>
                                         <img src="../<?= $item['image']; ?>" style="wiidh:50px; height:50px" alt="Img">
                                     <td><?= $item['name'] ?></td>
+                                    <td><?= $item['quantity'] ?></td>
+                                    <td><?= $item['size'] ?></td>
+                                    <td><?= $item['color'] ?></td>
+                                    <td><?= $item['sale_price'] ?></td>
                                     <td>
                                         <?php
                                         if ($item['status'] == 0) {
@@ -66,10 +74,6 @@
             <?php
             } else {
             ?>
-
-                <!-- <tr>
-                    <td colspan="4">No Record found!</td>
-                </tr> -->
 
                 <div class="alert alert-warning" role="alert">
                     No Record found!

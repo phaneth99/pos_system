@@ -116,6 +116,8 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Product Name</th>
+                                <th>Size</th>
+                                <th>Color</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total Price</th>
@@ -129,7 +131,9 @@
                                 <tr>
                                     <td><?= $i++; ?></td>
                                     <td><?= $proItem['name']; ?></td>
-                                    <td><?= $proItem['price']; ?></td>
+                                    <td><?= $proItem['size']; ?></td>
+                                    <td><?= $proItem['color']; ?></td>
+                                    <td><?= $proItem['sale_price']; ?></td>
 
                                     <td>
                                         <div class="input-group qtyBox">
@@ -141,7 +145,7 @@
                                         </div>
                                     </td>
 
-                                    <td><?= number_format($proItem['price'] * $proItem['quantity'], 0) ?></td>
+                                    <td><?= number_format($proItem['sale_price'] * $proItem['quantity'], 0) ?></td>
 
                                     <td>
                                         <a href="orders-item-delete.php?index=<?= $key; ?>" class="btn btn-danger">Remove</a>

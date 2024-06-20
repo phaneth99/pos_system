@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="company" class="form-label">Address *</label>
+                            <label for="company" class="form-label">Company *</label>
                             <input type="text" id="company" name="company" value="<?= $supplier['data']['company']; ?>" require class="form-control">
                         </div>
 

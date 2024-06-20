@@ -76,7 +76,7 @@
                         return false;
                     }
 
-                    $orderItemRs = mysqli_query($conn, "SELECT oi.quantity as orderItemQuantity, oi.price as orderItemPrice,
+                    $orderItemRs = mysqli_query($conn, "SELECT oi.quantity as orderItemQuantity, oi.sale_price as orderItemPrice,
                     o.*, oi.*, p.* FROM orders o, order_items oi, products p 
                     WHERE oi.order_id=o.id AND p.id=oi.product_id AND o.tracking_no='$trackingNo' ");
 
@@ -89,7 +89,9 @@
                                     <thead>
                                         <tr>
                                             <th align="start" style="border-bottom: 1px solid #ccc;" width="5%">ID</th>
-                                            <th align="start" style="border-bottom: 1px solid #ccc;">Prodcut Name</th>
+                                            <th align="start" style="border-bottom: 1px solid #ccc;">Prodcut Name</th>  
+                                            <th align="start" style="border-bottom: 1px solid #ccc;">Size</th>  
+                                            <th align="start" style="border-bottom: 1px solid #ccc;">Color</th>  
                                             <th align="start" style="border-bottom: 1px solid #ccc;" width="10%">Price</th>
                                             <th align="start" style="border-bottom: 1px solid #ccc;" width="10%">Quantity</th>
                                             <th align="start" style="border-bottom: 1px solid #ccc;" width="15%">Price Total</th>
@@ -106,6 +108,8 @@
                                             <tr>
                                                 <td style="border-bottom: 1px solid #ccc;"><?= $i++; ?></td>
                                                 <td style="border-bottom: 1px solid #ccc;"><?= $row['name']; ?></td>
+                                                <td style="border-bottom: 1px solid #ccc;"><?= $row['size']; ?></td>
+                                                <td style="border-bottom: 1px solid #ccc;"><?= $row['color']; ?></td>
                                                 <td style="border-bottom: 1px solid #ccc;"><?= number_format($row['orderItemPrice'], 0) ?></td>
                                                 <td style="border-bottom: 1px solid #ccc;"><?= $row['orderItemQuantity']; ?></td>
                                                 <td style="border-bottom: 1px solid #ccc;" class="fw-bold">

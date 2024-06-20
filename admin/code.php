@@ -159,7 +159,9 @@ if (isset($_POST['updateCategory'])) {
     }
 }
 
+
 // Saving products
+
 if (isset($_POST['saveProduct'])) {
 
     $categoryId = validate($_POST['category_id']);
@@ -167,13 +169,17 @@ if (isset($_POST['saveProduct'])) {
     $adminId = validate($_POST['admin_id']);
     $name = validate($_POST['name']);
     $dec = validate($_POST['dec']);
-    $price = validate($_POST['price']);
-    $quantity = validate($_POST['qty']);
-    $image = validate($_POST['image']);
     $status = isset($_POST['status']) == true ? 1 : 0;
+    $size = validate($_POST['size']);
+    $color = validate($_POST['color']);
+    $quantity = validate($_POST['quantity']);
+    $purchasePrice = validate($_POST['purchase_price']);
+    $salePrice = validate($_POST['sale_price']);
 
 
-    if($name != '' && $categoryId != '' && $supplierId != '' && $adminId != ''){
+
+    if($name != '' && $categoryId != '' && $supplierId != '' && $adminId != '' && $size !='' && $color 
+    !='' && $salePrice !='' && $purchasePrice !=''){
 
     if ($_FILES['image']['size'] > 0) {
 
@@ -197,10 +203,13 @@ if (isset($_POST['saveProduct'])) {
         'supplier_id' => $supplierId,
         'admin_id' => $adminId,
         'description' => $dec,
-        'price' => $price,
-        'quantity' => $quantity,
         'image' => $finalImage,
-        'status' => $status
+        'status' => $status,
+        'sale_price' => $salePrice,
+        'purchase_price' => $purchasePrice,
+        'color' => $color,
+        'size' => $size,
+        'quantity' => $quantity
     ];
     $result = insert('products', $data);
 
@@ -228,17 +237,20 @@ if (isset($_POST['updateProduct'])) {
         exit;
     }
 
-    $category_id = validate($_POST['category_id']);
-    $supplier_id = validate($_POST['supplier_id']);
-    $admin_id = validate($_POST['admin_id']);
+    $categoryId = validate($_POST['category_id']);
+    $supplierId = validate($_POST['supplier_id']);
+    $adminId = validate($_POST['admin_id']);
     $name = validate($_POST['name']);
     $dec = validate($_POST['dec']);
-    $price = validate($_POST['price']);
-    $quantity = validate($_POST['qty']);
-    $image = validate($_POST['image']);
     $status = isset($_POST['status']) == true ? 1 : 0;
+    $size = validate($_POST['size']);
+    $color = validate($_POST['color']);
+    $quantity = validate($_POST['quantity']);
+    $purchasePrice = validate($_POST['purchase_price']);
+    $salePrice = validate($_POST['sale_price']);
 
-    if($name != '' && $category_id != '' && $supplier_id != '' && $admin_id != ''){
+    if($name != '' && $categoryId != '' && $supplierId != '' && $adminId != ''
+     && $salePrice !='' && $purchasePrice !=''){
 
 
     if ($_FILES['image']['size'] > 0) {
@@ -265,12 +277,17 @@ if (isset($_POST['updateProduct'])) {
 
     $data = [
         'name' => $name,
-        'category_id' => $category_id,
+        'category_id' => $categoryId,
+        'supplier_id' => $supplierId,
+        'admin_id' => $adminId,
         'description' => $dec,
-        'price' => $price,
-        'quantity' => $quantity,
         'image' => $finalImage,
-        'status' => $status
+        'status' => $status,
+        'sale_price' => $salePrice,
+        'purchase_price' => $purchasePrice,
+        'size' => $size,
+        'color' => $color,
+        'quantity' => $quantity
     ];
     $result = update('products', $product_id, $data);
 
